@@ -930,3 +930,22 @@ footer strong {
   font-size: 16px; cursor: pointer; width: 28px;
 }
 .svg-video-progress { flex: 1; accent-color: var(--cyan); cursor: pointer; }
+/* Marco que agrupa video + barra para la pantalla completa */
+.svg-video-frame {
+  position: relative;
+}
+.svg-video-frame:fullscreen {
+  background: #000;
+  display: flex;
+  flex-direction: column;
+}
+.svg-video-frame:-webkit-full-screen {
+  background: #000;
+  display: flex;
+  flex-direction: column;
+}
+.svg-video-frame:fullscreen .video-wrapper,
+.svg-video-frame:-webkit-full-screen .video-wrapper {
+  flex: 1;
+  height: 100% !important;
+}
