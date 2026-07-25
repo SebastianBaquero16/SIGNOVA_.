@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juego — SIGNOVA</title>
+<link rel="stylesheet" href="../assets/css/styles.css">
+<style>
+  .juegos-page {
+    min-height: calc(100vh - 74px);
+    background: var(--azul-fondo);
+    padding: 48px 5% 80px;
+  }
+  .juegos-header { text-align: center; margin-bottom: 40px; }
+  .juegos-header h1 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.9rem, 4.5vw, 3rem);
+    letter-spacing: -1.5px;
+    color: var(--negro);
+    margin-bottom: 10px;
+  }
+  .juegos-header h1 span {
+    background: linear-gradient(135deg, var(--morado), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .juegos-header p {
+    color: var(--gris-suave);
+    font-size: 1rem;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .grid-juegos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  @media (max-width: 880px) {
+    .grid-juegos { grid-template-columns: 1fr; max-width: 480px; }
+  }
+
+  .juego-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.09);
+    border: 1.5px solid #f0f0f0;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .juego-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 34px rgba(0,0,0,0.14);
+  }
+  .juego-card-top {
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.2rem;
+  }
+  .juego-card-top.memoria    { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+  .juego-card-top.deletreo   { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+  .juego-card-top.contrarreloj { background: linear-gradient(135deg, #f97316, #f43f5e); }
+
+  .juego-card-body { padding: 20px 22px 24px; }
+  .juego-card-body h2 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--negro);
+    margin-bottom: 8px;
+  }
+  .juego-card-body p {
+    color: var(--gris-suave);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  .juego-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--morado);
+  }
+</style>
+</head>
+
+<body>
+<nav class="navbar">
+  <a href="../index.html" class="logo"><span class="logo-s">S</span><span class="logo-ig">IG</span><span class="logo-no">NO</span><span class="logo-va">VA</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a></li>
+    <li><a href="traductor.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/><path d="M15 15l6 6m-6 0l6-6"/></svg><span>Traductor</span></a></li>
+    <li><a href="../lecciones/categorias.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Categorías</span></a></li>
+    <li><a href="juegos.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 00-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 003 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 019.828 16h4.344a2 2 0 011.414.586L17 18c.5.5 1 1 2 1a3 3 0 003-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.01-.1-.017-.151A4 4 0 0017.32 5z"/></svg><span>Juego</span></a></li>
+    <li><a href="../usuario/cuenta.html" id="nav-cuenta-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span id="nav-cuenta-label">Cuenta</span></a></li>
+    <li class="navbar-racha-slot" id="navbar-racha-slot"></li>
+    <li class="dropdown">
+      <a href="#" title="Más opciones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg><span>Más</span></a>
+      <ul class="dropdown-menu">
+        <li><a href="quiz.html">🧠 Quiz</a></li>
+        <li><a href="../usuario/progreso.html">📊 Progreso</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<div style="height:3px;background:linear-gradient(90deg,var(--magenta),#a855f7,var(--cyan))"></div>
+
+<section class="juegos-page">
+
+  <div class="juegos-header">
+    <h1>Elige un <span>juego</span></h1>
+    <p>Aprende y repasa la Lengua de Señas Colombiana jugando. Elige uno de los 3 juegos disponibles.</p>
+  </div>
+
+  <div class="grid-juegos">
+
+    <a href="juego.html" class="juego-card">
+      <div class="juego-card-top memoria">🎮</div>
+      <div class="juego-card-body">
+        <h2>Juego de memoria</h2>
+        <p>Encuentra las parejas entre la palabra y su video en LSC. Elige la categoría que quieras practicar.</p>
+        <div class="juego-card-cta">Jugar →</div>
+      </div>
+    </a>
+
+    <a href="deletreo.html" class="juego-card">
+      <div class="juego-card-top deletreo">📝</div>
+      <div class="juego-card-body">
+        <h2>Deletreo LSC</h2>
+        <p>Mira la seña y deletrea la palabra correcta usando el teclado A-Z.</p>
+        <div class="juego-card-cta">Jugar →</div>
+      </div>
+    </a>
+
+    <a href="contrarreloj.html" class="juego-card">
+      <div class="juego-card-top contrarreloj">⏱️</div>
+      <div class="juego-card-body">
+        <h2>Contrarreloj</h2>
+        <p>Responde la mayor cantidad de señas posible antes de que se acabe el tiempo. ¡Suma combo!</p>
+        <div class="juego-card-cta">Jugar →</div>
+      </div>
+    </a>
+
+  </div>
+
+</section>
+
+<footer>
+  <strong>SIGNOVA</strong> — Plataforma de aprendizaje de Lengua de Señas Colombiana &nbsp;·&nbsp;
+  Proyecto Formativo SENA
+</footer>
+
+<script>
+  (function() {
+    const sesion = JSON.parse(localStorage.getItem('signova_sesion') || 'null');
+    const label = document.getElementById('nav-cuenta-label');
+    if (sesion && label) label.textContent = sesion.nombre.split(' ')[0];
+  })();
+</script>
+
+<script src="../assets/js/gamification.js"></script>
+</body>
+</html>

@@ -1,0 +1,992 @@
+[
+  {
+    "sena": "abuelo",
+    "estado": "ok",
+    "frames_usados": [
+      57,
+      85,
+      113,
+      183,
+      211,
+      238,
+      266,
+      336,
+      364,
+      392
+    ],
+    "total_frames": 393,
+    "cobertura_pct": 64.1
+  },
+  {
+    "sena": "almuerzo",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      22,
+      45,
+      67,
+      89,
+      112,
+      134,
+      156,
+      179,
+      201
+    ],
+    "total_frames": 202,
+    "cobertura_pct": 100.0
+  },
+  {
+    "sena": "amarillo",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      20,
+      41,
+      61,
+      81,
+      102,
+      122,
+      142,
+      163,
+      184
+    ],
+    "total_frames": 185,
+    "cobertura_pct": 99.5
+  },
+  {
+    "sena": "amor",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      25,
+      48,
+      71,
+      94,
+      117,
+      140,
+      163,
+      186,
+      209
+    ],
+    "total_frames": 210,
+    "cobertura_pct": 98.1
+  },
+  {
+    "sena": "azul",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      24,
+      47,
+      71,
+      94,
+      118,
+      141,
+      165,
+      188,
+      212
+    ],
+    "total_frames": 213,
+    "cobertura_pct": 100.0
+  },
+  {
+    "sena": "blanco",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      19,
+      38,
+      56,
+      75,
+      94,
+      113,
+      131,
+      150,
+      169
+    ],
+    "total_frames": 170,
+    "cobertura_pct": 100.0
+  },
+  {
+    "sena": "boca",
+    "estado": "ok",
+    "frames_usados": [
+      9,
+      29,
+      49,
+      69,
+      89,
+      109,
+      129,
+      149,
+      169,
+      189
+    ],
+    "total_frames": 190,
+    "cobertura_pct": 95.3
+  },
+  {
+    "sena": "brazos",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      23,
+      46,
+      69,
+      92,
+      115,
+      138,
+      161,
+      184,
+      207
+    ],
+    "total_frames": 208,
+    "cobertura_pct": 100.0
+  },
+  {
+    "sena": "buenas_noches",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      20,
+      41,
+      61,
+      112,
+      132,
+      153,
+      201,
+      222,
+      242
+    ],
+    "total_frames": 243,
+    "cobertura_pct": 76.1
+  },
+  {
+    "sena": "buenas_tardes",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      18,
+      36,
+      54,
+      97,
+      115,
+      133,
+      177,
+      195,
+      213
+    ],
+    "total_frames": 228,
+    "cobertura_pct": 71.5
+  },
+  {
+    "sena": "buenos_dias",
+    "estado": "ok",
+    "frames_usados": [
+      15,
+      33,
+      52,
+      70,
+      121,
+      139,
+      158,
+      208,
+      227,
+      246
+    ],
+    "total_frames": 249,
+    "cobertura_pct": 67.1
+  },
+  {
+    "sena": "caballo",
+    "estado": "ok",
+    "frames_usados": [
+      2,
+      29,
+      53,
+      77,
+      101,
+      124,
+      148,
+      172,
+      196,
+      220
+    ],
+    "total_frames": 221,
+    "cobertura_pct": 97.7
+  },
+  {
+    "sena": "cabeza",
+    "estado": "ok",
+    "frames_usados": [
+      8,
+      28,
+      48,
+      68,
+      88,
+      107,
+      127,
+      147,
+      167,
+      187
+    ],
+    "total_frames": 188,
+    "cobertura_pct": 95.7
+  },
+  {
+    "sena": "caliente",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      18,
+      37,
+      55,
+      74,
+      92,
+      111,
+      129,
+      148,
+      166
+    ],
+    "total_frames": 167,
+    "cobertura_pct": 100.0
+  },
+  {
+    "sena": "caminar",
+    "estado": "ok",
+    "frames_usados": [
+      15,
+      23,
+      31,
+      40,
+      48,
+      56,
+      64,
+      73,
+      81,
+      89
+    ],
+    "total_frames": 100,
+    "cobertura_pct": 75.0
+  },
+  {
+    "sena": "cantante",
+    "estado": "ok",
+    "frames_usados": [
+      18,
+      38,
+      57,
+      76,
+      95,
+      114,
+      133,
+      152,
+      171,
+      190
+    ],
+    "total_frames": 191,
+    "cobertura_pct": 90.1
+  },
+  {
+    "sena": "casa",
+    "estado": "ok",
+    "frames_usados": [
+      22,
+      33,
+      49,
+      58,
+      66,
+      75,
+      83,
+      92,
+      100,
+      109
+    ],
+    "total_frames": 125,
+    "cobertura_pct": 62.4
+  },
+  {
+    "sena": "cena",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      25,
+      49,
+      74,
+      99,
+      124,
+      148,
+      173,
+      197,
+      224
+    ],
+    "total_frames": 225,
+    "cobertura_pct": 98.7
+  },
+  {
+    "sena": "colegio",
+    "estado": "ok",
+    "frames_usados": [
+      21,
+      48,
+      74,
+      101,
+      157,
+      184,
+      210,
+      271,
+      297,
+      324
+    ],
+    "total_frames": 334,
+    "cobertura_pct": 71.9
+  },
+  {
+    "sena": "colores_escuela",
+    "estado": "ok",
+    "frames_usados": [
+      20,
+      37,
+      55,
+      72,
+      133,
+      151,
+      169,
+      227,
+      245,
+      262
+    ],
+    "total_frames": 281,
+    "cobertura_pct": 55.9
+  },
+  {
+    "sena": "comer",
+    "estado": "ok",
+    "frames_usados": [
+      28,
+      36,
+      45,
+      53,
+      61,
+      81,
+      89,
+      97,
+      105,
+      113
+    ],
+    "total_frames": 125,
+    "cobertura_pct": 57.6
+  },
+  {
+    "sena": "como_estas",
+    "estado": "ok",
+    "frames_usados": [
+      17,
+      29,
+      40,
+      52,
+      91,
+      102,
+      114,
+      155,
+      166,
+      178
+    ],
+    "total_frames": 193,
+    "cobertura_pct": 54.9
+  },
+  {
+    "sena": "cuaderno",
+    "estado": "ok",
+    "frames_usados": [
+      18,
+      38,
+      58,
+      79,
+      144,
+      164,
+      184,
+      242,
+      262,
+      282
+    ],
+    "total_frames": 302,
+    "cobertura_pct": 60.6
+  },
+  {
+    "sena": "desagrado",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      22,
+      44,
+      67,
+      89,
+      111,
+      133,
+      156,
+      178,
+      200
+    ],
+    "total_frames": 201,
+    "cobertura_pct": 100.0
+  },
+  {
+    "sena": "desayunar",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      20,
+      41,
+      61,
+      82,
+      102,
+      123,
+      143,
+      164,
+      184
+    ],
+    "total_frames": 185,
+    "cobertura_pct": 100.0
+  },
+  {
+    "sena": "dormir",
+    "estado": "ok",
+    "frames_usados": [
+      22,
+      25,
+      28,
+      31,
+      53,
+      66,
+      70,
+      73,
+      76,
+      100
+    ],
+    "total_frames": 116,
+    "cobertura_pct": 25.0
+  },
+  {
+    "sena": "enfermera",
+    "estado": "ok",
+    "frames_usados": [
+      7,
+      26,
+      46,
+      87,
+      105,
+      123,
+      141,
+      187,
+      205,
+      223
+    ],
+    "total_frames": 233,
+    "cobertura_pct": 70.0
+  },
+  {
+    "sena": "esfero",
+    "estado": "ok",
+    "frames_usados": [
+      24,
+      41,
+      58,
+      75,
+      124,
+      142,
+      159,
+      210,
+      227,
+      244
+    ],
+    "total_frames": 248,
+    "cobertura_pct": 62.5
+  },
+  {
+    "sena": "familia",
+    "estado": "ok",
+    "frames_usados": [
+      17,
+      49,
+      81,
+      113,
+      179,
+      211,
+      243,
+      309,
+      341,
+      374
+    ],
+    "total_frames": 392,
+    "cobertura_pct": 73.7
+  },
+  {
+    "sena": "feliz",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      23,
+      45,
+      67,
+      89,
+      111,
+      133,
+      155,
+      177,
+      199
+    ],
+    "total_frames": 200,
+    "cobertura_pct": 99.5
+  },
+  {
+    "sena": "gato",
+    "estado": "ok",
+    "frames_usados": [
+      16,
+      41,
+      65,
+      88,
+      112,
+      136,
+      160,
+      183,
+      207,
+      231
+    ],
+    "total_frames": 234,
+    "cobertura_pct": 91.9
+  },
+  {
+    "sena": "hambre",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      19,
+      38,
+      58,
+      77,
+      96,
+      115,
+      135,
+      154,
+      173
+    ],
+    "total_frames": 174,
+    "cobertura_pct": 100.0
+  },
+  {
+    "sena": "hijo",
+    "estado": "ok",
+    "frames_usados": [
+      31,
+      52,
+      73,
+      94,
+      146,
+      166,
+      187,
+      242,
+      263,
+      284
+    ],
+    "total_frames": 314,
+    "cobertura_pct": 60.2
+  },
+  {
+    "sena": "hola",
+    "estado": "ok",
+    "frames_usados": [
+      4,
+      19,
+      34,
+      49,
+      94,
+      109,
+      124,
+      170,
+      185,
+      200
+    ],
+    "total_frames": 229,
+    "cobertura_pct": 59.4
+  },
+  {
+    "sena": "ingeniero",
+    "estado": "ok",
+    "frames_usados": [
+      5,
+      49,
+      92,
+      150,
+      193,
+      236,
+      300,
+      342,
+      385,
+      428
+    ],
+    "total_frames": 429,
+    "cobertura_pct": 90.0
+  },
+  {
+    "sena": "ira",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      22,
+      43,
+      65,
+      87,
+      108,
+      130,
+      152,
+      173,
+      195
+    ],
+    "total_frames": 196,
+    "cobertura_pct": 100.0
+  },
+  {
+    "sena": "loro",
+    "estado": "ok",
+    "frames_usados": [
+      7,
+      27,
+      47,
+      67,
+      87,
+      108,
+      128,
+      148,
+      168,
+      188
+    ],
+    "total_frames": 200,
+    "cobertura_pct": 91.0
+  },
+  {
+    "sena": "maleta",
+    "estado": "ok",
+    "frames_usados": [
+      18,
+      33,
+      48,
+      98,
+      113,
+      128,
+      179,
+      193,
+      208,
+      223
+    ],
+    "total_frames": 235,
+    "cobertura_pct": 57.0
+  },
+  {
+    "sena": "mama",
+    "estado": "ok",
+    "frames_usados": [
+      37,
+      51,
+      66,
+      132,
+      146,
+      161,
+      175,
+      231,
+      246,
+      260
+    ],
+    "total_frames": 283,
+    "cobertura_pct": 45.9
+  },
+  {
+    "sena": "manos",
+    "estado": "ok",
+    "frames_usados": [
+      10,
+      25,
+      40,
+      55,
+      70,
+      84,
+      99,
+      114,
+      129,
+      144
+    ],
+    "total_frames": 147,
+    "cobertura_pct": 91.8
+  },
+  {
+    "sena": "negro",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      20,
+      41,
+      61,
+      81,
+      102,
+      122,
+      142,
+      163,
+      183
+    ],
+    "total_frames": 185,
+    "cobertura_pct": 99.5
+  },
+  {
+    "sena": "ojo",
+    "estado": "ok",
+    "frames_usados": [
+      18,
+      39,
+      60,
+      81,
+      102,
+      124,
+      145,
+      166,
+      187,
+      208
+    ],
+    "total_frames": 213,
+    "cobertura_pct": 89.7
+  },
+  {
+    "sena": "papa",
+    "estado": "ok",
+    "frames_usados": [
+      23,
+      42,
+      61,
+      81,
+      142,
+      161,
+      180,
+      240,
+      259,
+      278
+    ],
+    "total_frames": 288,
+    "cobertura_pct": 60.4
+  },
+  {
+    "sena": "perro",
+    "estado": "ok",
+    "frames_usados": [
+      8,
+      24,
+      39,
+      55,
+      71,
+      86,
+      102,
+      118,
+      133,
+      149
+    ],
+    "total_frames": 150,
+    "cobertura_pct": 94.7
+  },
+  {
+    "sena": "pies",
+    "estado": "ok",
+    "frames_usados": [
+      13,
+      34,
+      55,
+      76,
+      97,
+      118,
+      139,
+      160,
+      181,
+      203
+    ],
+    "total_frames": 204,
+    "cobertura_pct": 93.1
+  },
+  {
+    "sena": "policia",
+    "estado": "ok",
+    "frames_usados": [
+      13,
+      29,
+      44,
+      60,
+      94,
+      110,
+      125,
+      163,
+      178,
+      194
+    ],
+    "total_frames": 205,
+    "cobertura_pct": 68.8
+  },
+  {
+    "sena": "profesor",
+    "estado": "ok",
+    "frames_usados": [
+      6,
+      26,
+      46,
+      66,
+      104,
+      125,
+      145,
+      183,
+      203,
+      223
+    ],
+    "total_frames": 227,
+    "cobertura_pct": 80.2
+  },
+  {
+    "sena": "psicologo",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      17,
+      34,
+      50,
+      67,
+      84,
+      101,
+      118,
+      135,
+      153
+    ],
+    "total_frames": 159,
+    "cobertura_pct": 95.6
+  },
+  {
+    "sena": "rojo",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      31,
+      63,
+      94,
+      125,
+      157,
+      188,
+      219,
+      251,
+      282
+    ],
+    "total_frames": 283,
+    "cobertura_pct": 100.0
+  },
+  {
+    "sena": "sorpresa",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      27,
+      54,
+      80,
+      108,
+      135,
+      163,
+      192,
+      219,
+      248
+    ],
+    "total_frames": 249,
+    "cobertura_pct": 95.6
+  },
+  {
+    "sena": "tiburon",
+    "estado": "ok",
+    "frames_usados": [
+      10,
+      35,
+      59,
+      84,
+      109,
+      133,
+      158,
+      183,
+      207,
+      232
+    ],
+    "total_frames": 233,
+    "cobertura_pct": 95.7
+  },
+  {
+    "sena": "tiempo",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      9,
+      17,
+      26,
+      34,
+      43,
+      51,
+      60,
+      68,
+      77
+    ],
+    "total_frames": 90,
+    "cobertura_pct": 86.7
+  },
+  {
+    "sena": "trabajar",
+    "estado": "ok",
+    "frames_usados": [
+      12,
+      19,
+      27,
+      34,
+      42,
+      49,
+      57,
+      64,
+      72,
+      79
+    ],
+    "total_frames": 92,
+    "cobertura_pct": 73.9
+  },
+  {
+    "sena": "triste",
+    "estado": "ok",
+    "frames_usados": [
+      0,
+      32,
+      64,
+      96,
+      128,
+      161,
+      193,
+      225,
+      257,
+      289
+    ],
+    "total_frames": 290,
+    "cobertura_pct": 100.0
+  },
+  {
+    "sena": "vaca",
+    "estado": "ok",
+    "frames_usados": [
+      8,
+      29,
+      49,
+      70,
+      90,
+      133,
+      153,
+      174,
+      194,
+      215
+    ],
+    "total_frames": 216,
+    "cobertura_pct": 86.1
+  }
+]

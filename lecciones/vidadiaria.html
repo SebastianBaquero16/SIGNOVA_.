@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vida Diaria — SIGNOVA</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .video-seccion {
+      padding: 0 5% 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+      <span class="logo-s">S</span><span class="logo-ig">IG</span><span class="logo-no">NO</span><span class="logo-va">VA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Inicio</span></a></li>
+      <li><a href="../practica/traductor.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/><path d="M15 15l6 6m-6 0l6-6"/></svg>
+        <span>Traductor</span></a></li>
+      <li><a href="categorias.html" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <span>Categorías</span></a></li>
+
+      <li><a href="../practica/juegos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 00-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 003 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 019.828 16h4.344a2 2 0 011.414.586L17 18c.5.5 1 1 2 1a3 3 0 003-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.01-.1-.017-.151A4 4 0 0017.32 5z"/></svg><span>Juego</span></a></li>
+      <li>
+        <a href="../usuario/cuenta.html" id="nav-cuenta-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span id="nav-cuenta-label">Cuenta</span>
+        </a>
+      </li>
+      <li class="navbar-racha-slot" id="navbar-racha-slot"></li>
+      <li class="dropdown">
+        <a href="#" title="Más opciones">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <span>Más</span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="../practica/quiz.html">🧠 Quiz</a></li>
+          <li><a href="../usuario/progreso.html">📊 Progreso</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <div style="height:3px;background:linear-gradient(90deg,var(--magenta),#a855f7,var(--cyan))"></div>
+
+  <div class="cat-header">
+    <a href="categorias.html" class="btn-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      Volver a categorías
+    </a>
+    <div class="cat-badge">Categoría · Vida diaria</div>
+    <h1>🏠 Vida Diaria</h1>
+    <p>Señas para la comunicación cotidiana en Lengua de Señas Colombiana.</p>
+  </div>
+
+  <div class="video-seccion">
+    <div class="grid-videos">
+
+      <div class="video-card fade-up">
+        <div class="video-wrapper">
+          <video controls preload="metadata">
+            <source src="../assets/videos/casa.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-label">Casa</div>
+      </div>
+      <div class="video-card fade-up">
+        <div class="video-wrapper">
+          <video controls preload="metadata">
+            <source src="../assets/videos/comer.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-label">Comer</div>
+      </div>
+      <div class="video-card fade-up">
+        <div class="video-wrapper">
+          <video controls preload="metadata">
+            <source src="../assets/videos/dormir.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-label">Dormir</div>
+      </div>
+      <div class="video-card fade-up">
+        <div class="video-wrapper">
+          <video controls preload="metadata">
+            <source src="../assets/videos/trabajar.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-label">Trabajar</div>
+      </div>
+      <div class="video-card fade-up">
+        <div class="video-wrapper">
+          <video controls preload="metadata">
+            <source src="../assets/videos/caminar.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-label">Caminar</div>
+      </div>
+      <div class="video-card fade-up">
+        <div class="video-wrapper">
+          <video controls preload="metadata">
+            <source src="../assets/videos/tiempo.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-label">Tiempo</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <strong>SIGNOVA</strong> — Plataforma de aprendizaje de Lengua de Señas Colombiana &nbsp;·&nbsp; Proyecto Formativo SENA
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+  <script>
+    (function() {
+      var sesion = JSON.parse(localStorage.getItem('signova_sesion') || 'null');
+      var label  = document.getElementById('nav-cuenta-label');
+      if (sesion && label) label.textContent = sesion.nombre.split(' ')[0];
+    })();
+  </script>
+<script src="../assets/js/gamification.js"></script>
+</body>
+</html>

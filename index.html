@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<!--
+  ¿QUÉ ES EL DOCTYPE?
+  Le dice al navegador que esto es HTML5 (la versión moderna).
+  Siempre va en la primera línea.
+-->
+<html lang="es">
+<!--
+  lang="es" le indica a los buscadores y lectores de pantalla
+  que el contenido está en español.
+-->
+
+<head>
+  <!-- META CHARSET: permite tildes, ñ y caracteres especiales -->
+  <meta charset="UTF-8">
+
+  <!-- VIEWPORT: hace que el sitio se vea bien en celulares -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- TÍTULO que aparece en la pestaña del navegador -->
+  <title>SIGNOVA — Aprende Lenguaje de Señas</title>
+
+  <!-- Enlazamos el archivo CSS compartido -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <!--
+    ESTILOS EXCLUSIVOS de esta página (index).
+    Los ponemos aquí y no en styles.css porque solo aplican al inicio.
+  -->
+  <style>
+    /* ---- FRANJA DE COLOR bajo el navbar ---- */
+    .navbar-line {
+      height: 3px;
+      background: linear-gradient(90deg, var(--magenta), #a855f7, var(--cyan));
+    }
+
+    /* ---- CHIP encima del título ---- */
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.9);
+      border: 1.5px solid rgba(0,194,224,0.25);
+      border-radius: 50px;
+      padding: 7px 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--morado);
+      margin-bottom: 28px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    /* Punto verde dentro del chip */
+    .chip-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
+    /* ---- SEÑAS decorativas flotando al fondo del hero ---- */
+    .hero-bg-text {
+      position: absolute;
+      font-size: clamp(6rem, 15vw, 12rem);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      opacity: 0.035;
+      user-select: none;
+      pointer-events: none;
+      letter-spacing: -4px;
+      color: var(--morado);
+      z-index: 0;
+    }
+    .hero-bg-text.top    { top: 10%; left: -2%; }
+    .hero-bg-text.bottom { bottom: 8%; right: -1%; }
+
+    /* ---- ESTADÍSTICAS debajo del botón ---- */
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 52px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 1.8rem;
+      /* Gradiente en el número */
+      background: linear-gradient(135deg, var(--magenta), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--gris-suave);
+      margin-top: 3px;
+    }
+
+    /* Separador entre estadísticas */
+    .stat-sep {
+      width: 1px;
+      height: 40px;
+      background: var(--azul-medio);
+      align-self: center;
+    }
+
+    /* ---- ONDA SVG separadora entre secciones ---- */
+    .wave-sep {
+      display: block;
+      width: 100%;
+      line-height: 0;
+      margin-top: -2px;
+    }
+
+    /* ---- SECCIÓN "¿POR QUÉ APRENDER?" con fondo blanco ---- */
+    .section-blanca {
+      background: white;
+      padding: 80px 5%;
+    }
+    .section-blanca .section { max-width: 1100px; margin: 0 auto; padding: 0; }
+
+    /* ---- TIMELINE histórica ---- */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    /* Línea vertical del timeline */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 9px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--magenta), var(--cyan));
+    }
+    .timeline-item {
+      position: relative;
+    }
+    /* Círculo del punto en la línea */
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -27px; top: 5px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: white;
+      border: 2.5px solid var(--morado);
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
+    }
+    .timeline-year {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 0.78rem;
+      color: var(--morado);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .timeline-text {
+      font-size: 0.93rem;
+      color: var(--gris-texto);
+      line-height: 1.65;
+    }
+
+    /* ---- LLAMADO A ACCIÓN final de la página ---- */
+    .cta-final {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d1b5e 50%, #0a2040 100%);
+      padding: 80px 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      font-size: 18rem;
+      opacity: 0.04;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .cta-final h2 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: white;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .cta-final p {
+      color: rgba(255,255,255,0.65);
+      font-size: 1rem;
+      max-width: 440px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===================================================
+    La barra de navegación es un <nav> con:
+    - El logo (enlace a inicio)
+    - Una lista <ul> con los enlaces
+  ================================================================== -->
+  <nav class="navbar">
+    <!-- Logo: cada letra en su span para aplicar colores distintos -->
+    <a href="index.html" class="logo">
+      <span class="logo-s">S</span><span class="logo-ig">IG</span><span class="logo-no">NO</span><span class="logo-va">VA</span>
+    </a>
+
+    <!-- Menú de navegación -->
+    <ul class="nav-links">
+      <li>
+        <a href="index.html" class="active">
+          <!-- SVG inline: íconos sin necesidad de librerías externas -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li>
+        <a href="practica/traductor.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h7"/><path d="M15 15l6 6m-6 0l6-6"/>
+          </svg>
+          <span>Traductor</span>
+        </a>
+      </li>
+      <li>
+        <a href="lecciones/categorias.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+          </svg>
+          <span>Categorías</span>
+        </a>
+      </li>
+      <li>
+        <a href="practica/juegos.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 00-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 003 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 019.828 16h4.344a2 2 0 011.414.586L17 18c.5.5 1 1 2 1a3 3 0 003-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.01-.1-.017-.151A4 4 0 0017.32 5z"/></svg>
+          <span>Juego</span>
+        </a>
+      </li>
+      <li>
+        <a href="usuario/cuenta.html" id="nav-cuenta-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span id="nav-cuenta-label">Cuenta</span>
+        </a>
+      </li>
+      <li class="navbar-racha-slot" id="navbar-racha-slot"></li>
+      <li class="dropdown">
+  <a href="#" title="Más opciones">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+    <span>Más</span>
+  </a>
+
+  <ul class="dropdown-menu">
+    <li><a href="practica/quiz.html">🧠 Quiz</a></li>
+    <li><a href="usuario/progreso.html">📊 Progreso</a></li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+
+  <!-- Franja de color decorativa debajo del navbar -->
+  <div class="navbar-line"></div>
+
+
+  <!-- ===== HERO (sección principal) =================================
+    Es la primera sección grande que ves al entrar.
+    Lleva el título, subtítulo y botón de llamado a la acción.
+  ================================================================== -->
+  <section class="hero">
+
+    <!-- Textos decorativos de fondo (se ven difuminados) -->
+
+    <!-- Título principal -->
+    <h1 class="hero-title">
+      Aprende Lengua de<br>Señas Colombiana
+    </h1>
+
+    <!-- Subtítulo descriptivo -->
+    <p class="hero-subtitle">
+      Una plataforma sencilla para aprender LSC con videos reales. Pensada para estudiantes, familias y cualquier persona que quiera comunicarse mejor con la comunidad sorda de Colombia.
+    </p>
+
+    <!--
+      BOTÓN PRINCIPAL — un <a> que actúa como botón
+      href="lecciones/categorias.html" → al hacer clic, va a la página de categorías
+    -->
+    <a href="lecciones/categorias.html" class="btn-primary">Comenzar ahora</a>
+
+    <!-- Estadísticas numéricas debajo del botón (se animan al cargar) -->
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num" data-target="500" data-suffix="K+">0</div>
+        <div class="stat-label">Personas sordas en Colombia</div>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="10" data-suffix="">0</div>
+        <div class="stat-label">Categorías de aprendizaje</div>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="100" data-suffix="%">0</div>
+        <div class="stat-label">Gratuito y accesible</div>
+      </div>
+    </div>
+
+    <div class="blob-decorativo" style="top:10%; left:6%; width:180px; height:180px; background:var(--cyan);"></div>
+    <div class="blob-decorativo" style="bottom:5%; right:8%; width:220px; height:220px; background:var(--magenta); animation-delay:2s;"></div>
+
+  </section>
+
+
+  <!-- Sección de información simple -->
+  <div class="section-blanca">
+    <div class="section">
+
+      <div class="info-grid">
+        <div class="info-card fade-up">
+          <div class="info-card-num">500.000+</div>
+          <div class="info-card-label">personas con discapacidad auditiva en Colombia</div>
+        </div>
+        <div class="info-card fade-up">
+          <div class="info-card-num">300+</div>
+          <div class="info-card-label">lenguas de señas en el mundo</div>
+        </div>
+        <div class="info-card fade-up">
+          <div class="info-card-num">1996</div>
+          <div class="info-card-label">año en que Colombia reconoció la LSC oficialmente</div>
+        </div>
+        <div class="info-card fade-up">
+          <div class="info-card-num">10</div>
+          <div class="info-card-label">categorías disponibles en SIGNOVA</div>
+        </div>
+      </div>
+
+      <div class="texto-bloque fade-up">
+        <h3>¿Qué es la Lengua de Señas Colombiana?</h3>
+        <p>
+          La LSC es el idioma natural de la comunidad sorda en Colombia. No es un español gesticulado:
+          tiene su propia gramática y estructura, completamente independiente del español hablado.
+          Se expresa con movimientos de manos, expresiones faciales y postura corporal.
+        </p>
+      </div>
+
+      <div class="texto-bloque fade-up">
+        <h3>Por qué aprender LSC</h3>
+        <p>
+          Aprender lenguaje de señas te permite comunicarte con más de 500.000 personas sordas en Colombia.
+          Es útil en el trabajo, en la calle, en hospitales y en el día a día. La Ley 324 de 1996
+          reconoció la LSC como idioma oficial de la comunidad sorda colombiana.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Llamado a acción final -->
+  <section class="cta-final">
+    <h2>Empieza hoy, es gratis</h2>
+    <p>Entra a las categorías, aprende señas con videos reales y comparte lo que aprendes. Sin costo y sin registro obligatorio.</p>
+    <a href="lecciones/categorias.html" class="btn-primary">
+      Ver categorías
+    </a>
+  </section>
+
+  <!-- ===== FOOTER   <!-- ===== FOOTER ================================================== -->
+  <footer>
+    <strong>SIGNOVA</strong> — Plataforma de aprendizaje de Lengua de Señas Colombiana &nbsp;·&nbsp;
+    Proyecto Formativo SENA · Análisis y Desarrollo de Software
+  </footer>
+
+
+  <!--
+    JAVASCRIPT AL FINAL DEL BODY
+    ¿Por qué al final? Para que el HTML cargue primero y luego JS lo procese.
+    
+    Este script activa las animaciones .fade-up cuando el elemento
+    entra en la pantalla (IntersectionObserver).
+  -->
+  <script>
+    // IntersectionObserver: detecta cuando un elemento es visible en pantalla
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Cuando el elemento es visible, agregamos la clase 'visible'
+          // El CSS de .fade-up.visible hace la animación
+          entry.target.classList.add('visible');
+        }   
+      });
+    }, { threshold: 0.15 }); // 0.15 = cuando el 15% del elemento es visible
+
+    // Seleccionamos todos los elementos con clase .fade-up y los observamos
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Contador animado de las estadísticas del hero
+    document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const duracion = 1400;
+      const inicio = performance.now();
+      function paso(ahora) {
+        const avance = Math.min(1, (ahora - inicio) / duracion);
+        const facilitado = 1 - Math.pow(1 - avance, 3); // ease-out cúbico
+        el.textContent = Math.round(target * facilitado) + suffix;
+        if (avance < 1) requestAnimationFrame(paso);
+      }
+      requestAnimationFrame(paso);
+    });
+  </script>
+  
+<script src="assets/js/gamification.js"></script>
+</body>
+</html>

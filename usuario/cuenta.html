@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGNOVA — Mi Cuenta</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .cuenta-page {
+      min-height: calc(100vh - 68px);
+      background: var(--azul-fondo);
+      padding: 40px 20px 80px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    /* ── CARD AUTH (login / registro) ─────────────────────── */
+    .auth-card {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+      width: 100%;
+      max-width: 460px;
+      overflow: hidden;
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 18px 0;
+      border: none;
+      background: none;
+      font-family: 'Poppins', 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #aaa;
+      cursor: pointer;
+      transition: color 0.2s;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+    }
+    .tab-btn.active { color: var(--morado); border-bottom: 3px solid var(--morado); }
+    .tab-content { padding: 36px 40px 40px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-panel h2 { font-size: 1.55rem; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+    .tab-panel .subtitulo { font-size: 0.88rem; color: #888; margin-bottom: 28px; }
+    .campo { margin-bottom: 16px; }
+    .campo input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: #333;
+      background: #fafafa;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .campo input::placeholder { color: #bbb; }
+    .campo input:focus { border-color: var(--morado); background: #fff; box-shadow: 0 0 0 3px rgba(124,58,237,0.08); }
+    .forgot-link { display: block; text-align: right; font-size: 0.8rem; color: #888; text-decoration: none; margin-top:-8px; margin-bottom:22px; transition:color 0.2s; }
+    .forgot-link:hover { color: var(--morado); }
+    .btn-cuenta { width:100%; padding:15px; background:var(--morado); color:white; border:none; border-radius:12px; font-size:1rem; font-weight:600; font-family:inherit; cursor:pointer; transition:background 0.2s,transform 0.1s; margin-bottom:20px; }
+    .btn-cuenta:hover { background:#6d28d9; }
+    .btn-cuenta:active { transform:scale(0.98); }
+    .switch-text { text-align:center; font-size:0.87rem; color:#888; }
+    .switch-text a { color:var(--morado); font-weight:600; text-decoration:none; cursor:pointer; }
+    .switch-text a:hover { text-decoration:underline; }
+    .alert { border-radius:10px; padding:12px 16px; font-size:0.87rem; margin-bottom:18px; display:none; }
+    .alert.show { display:block; }
+    .alert-error   { background:#fef2f2; border:1px solid #fecaca; color:#dc2626; }
+    .alert-success { background:#f0fdf4; border:1px solid #bbf7d0; color:#16a34a; }
+    .hint { font-size:0.76rem; color:#bbb; margin-top:4px; padding-left:4px; }
+
+    /* ── PANEL DE SESIÓN ACTIVA ────────────────────────────── */
+    .perfil-wrap {
+      width: 100%;
+      max-width: 860px;
+      display: none;
+    }
+
+    /* Header del perfil */
+    .perfil-header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d1b5e 60%, #0a2040 100%);
+      border-radius: 24px;
+      padding: 40px 36px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .perfil-header::before {
+      content: '🤟';
+      position: absolute;
+      font-size: 10rem;
+      opacity: 0.05;
+      right: -20px; bottom: -20px;
+      pointer-events: none;
+    }
+    .perfil-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--morado), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      color: white;
+      font-weight: 900;
+      flex-shrink: 0;
+      font-family: 'Outfit', sans-serif;
+      border: 3px solid rgba(255,255,255,0.2);
+    }
+    .perfil-info { flex: 1; }
+    .perfil-nombre { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.5rem; color: white; margin-bottom: 4px; }
+    .perfil-correo { font-size: 0.88rem; color: rgba(255,255,255,0.55); }
+    .perfil-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* Grid de tarjetas */
+    .perfil-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .perfil-stat-card {
+      background: white;
+      border-radius: 18px;
+      padding: 22px 20px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+      border: 1.5px solid #f0f0f0;
+      text-align: center;
+    }
+    .perfil-stat-icon { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+    .perfil-stat-num {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 1.7rem;
+      background: linear-gradient(135deg, var(--morado), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .perfil-stat-label { font-size: 0.78rem; color: var(--gris-suave); }
+
+    /* Sección de actividad reciente */
+    .perfil-section {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+      border: 1.5px solid #f0f0f0;
+      margin-bottom: 16px;
+    }
+    .perfil-section-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--negro);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .actividad-list { display: flex; flex-direction: column; gap: 12px; }
+    .actividad-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      background: var(--azul-fondo);
+      border-radius: 12px;
+      font-size: 0.88rem;
+    }
+    .actividad-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .actividad-texto { flex: 1; color: var(--gris-texto); line-height: 1.4; }
+    .actividad-tiempo { font-size: 0.78rem; color: var(--gris-suave); flex-shrink: 0; }
+
+    /* Categorías favoritas */
+    .favoritos-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .favorito-chip {
+      background: rgba(124,58,237,0.07);
+      border: 1.5px solid rgba(124,58,237,0.15);
+      color: var(--morado);
+      border-radius: 50px;
+      padding: 7px 16px;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    /* Ajustes de cuenta */
+    .ajustes-list { display: flex; flex-direction: column; gap: 4px; }
+    .ajuste-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 6px;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 0.9rem;
+      color: var(--gris-texto);
+    }
+    .ajuste-row:last-child { border-bottom: none; }
+    .ajuste-label { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+    .toggle-switch {
+      width: 42px; height: 24px;
+      background: #e5e7eb;
+      border-radius: 50px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+      border: none;
+      flex-shrink: 0;
+    }
+    .toggle-switch.on { background: var(--morado); }
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      background: white;
+      border-radius: 50%;
+      top: 3px; left: 3px;
+      transition: left 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .toggle-switch.on::after { left: 21px; }
+
+    /* Botones acción */
+    .perfil-acciones {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-accion {
+      flex: 1;
+      min-width: 140px;
+      padding: 13px 20px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.1s;
+      text-decoration: none;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+    .btn-accion:active { transform: scale(0.98); }
+    .btn-accion.primario { background: var(--morado); color: white; }
+    .btn-accion.primario:hover { background: #6d28d9; }
+    .btn-accion.secundario { background: #f3f4f6; color: var(--gris-texto); }
+    .btn-accion.secundario:hover { background: #e5e7eb; }
+    .btn-accion.peligro { background: #fee2e2; color: #dc2626; }
+    .btn-accion.peligro:hover { background: #fecaca; }
+
+    @media (max-width: 680px) {
+      .perfil-grid { grid-template-columns: repeat(2, 1fr); }
+      .perfil-header { flex-direction: column; text-align: center; padding: 32px 24px; }
+    }
+    @media (max-width: 420px) {
+      .perfil-grid { grid-template-columns: 1fr; }
+      .tab-content { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+      <span class="logo-s">S</span><span class="logo-ig">IG</span><span class="logo-no">NO</span><span class="logo-va">VA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a></li>
+      <li><a href="../practica/traductor.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Buscador</span></a></li>
+      <li><a href="../lecciones/categorias.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Categorías</span></a></li>
+
+      <li><a href="../practica/juegos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 00-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 003 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 019.828 16h4.344a2 2 0 011.414.586L17 18c.5.5 1 1 2 1a3 3 0 003-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.01-.1-.017-.151A4 4 0 0017.32 5z"/></svg><span>Juego</span></a></li>
+      <li><a href="cuenta.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span id="nav-cuenta-label">Cuenta</span></a></li>
+      <li class="navbar-racha-slot" id="navbar-racha-slot"></li>
+      <li class="dropdown">
+        <a href="#" title="Más opciones">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <span>Más</span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="../practica/quiz.html">🧠 Quiz</a></li>
+          <li><a href="progreso.html">📊 Progreso</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <div class="navbar-line"></div>
+
+  <section class="cuenta-page">
+
+    <!-- ── PANEL SESIÓN ACTIVA ──────────────────────────────── -->
+    <div class="perfil-wrap" id="perfil-wrap">
+
+      <!-- Header con avatar y nombre -->
+      <div class="perfil-header">
+        <div class="perfil-avatar" id="perfil-avatar">U</div>
+        <div class="perfil-info">
+          <div class="perfil-nombre" id="perfil-nombre">Usuario</div>
+          <div class="perfil-correo" id="perfil-correo">correo@ejemplo.com</div>
+          <div class="perfil-badge">🎓 Estudiante de LSC · Plan Gratuito</div>
+        </div>
+      </div>
+
+      <!-- Estadísticas rápidas -->
+      <div class="perfil-grid">
+        <div class="perfil-stat-card">
+          <span class="perfil-stat-icon">🧠</span>
+          <div class="perfil-stat-num" id="stat-quiz">0</div>
+          <div class="perfil-stat-label">Mejor puntaje quiz</div>
+        </div>
+        <div class="perfil-stat-card">
+          <span class="perfil-stat-icon">🎮</span>
+          <div class="perfil-stat-num" id="stat-juego">0</div>
+          <div class="perfil-stat-label">Partidas jugadas</div>
+        </div>
+        <div class="perfil-stat-card">
+          <span class="perfil-stat-icon">📅</span>
+          <div class="perfil-stat-num" id="stat-dias">1</div>
+          <div class="perfil-stat-label">Días en SIGNOVA</div>
+        </div>
+      </div>
+
+      <!-- Actividad reciente -->
+      <div class="perfil-section">
+        <div class="perfil-section-title">📋 Actividad reciente</div>
+        <div class="actividad-list">
+          <div class="actividad-item">
+            <span class="actividad-icon">👋</span>
+            <span class="actividad-texto">Visitaste la categoría <strong>Saludos</strong></span>
+            <span class="actividad-tiempo">Hoy</span>
+          </div>
+          <div class="actividad-item">
+            <span class="actividad-icon">🔍</span>
+            <span class="actividad-texto">Buscaste la seña <strong>"hola"</strong> en el buscador</span>
+            <span class="actividad-tiempo">Hoy</span>
+          </div>
+          <div class="actividad-item">
+            <span class="actividad-icon">🎮</span>
+            <span class="actividad-texto">Completaste una partida del <strong>juego</strong></span>
+            <span class="actividad-tiempo">Ayer</span>
+          </div>
+          <div class="actividad-item">
+            <span class="actividad-icon">🧠</span>
+            <span class="actividad-texto">Realizaste el <strong>quiz</strong> de señas</span>
+            <span class="actividad-tiempo">Hace 2 días</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dos columnas: favoritos + ajustes -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+
+        <div class="perfil-section" style="margin-bottom:0">
+          <div class="perfil-section-title">⭐ Categorías visitadas</div>
+          <div class="favoritos-grid">
+            <span class="favorito-chip">👋 Saludos</span>
+            <span class="favorito-chip">👨‍👩‍👧 Familia</span>
+            <span class="favorito-chip">😊 Emociones</span>
+            <span class="favorito-chip">📚 Escuela</span>
+            <span class="favorito-chip">🍽️ Comida</span>
+          </div>
+        </div>
+
+        <div class="perfil-section" style="margin-bottom:0">
+          <div class="perfil-section-title">⚙️ Ajustes rápidos</div>
+          <div class="ajustes-list">
+            <div class="ajuste-row">
+              <span class="ajuste-label">🔔 Notificaciones</span>
+              <button class="toggle-switch on" onclick="this.classList.toggle('on')" title="Notificaciones"></button>
+            </div>
+            <div class="ajuste-row">
+              <span class="ajuste-label">🌙 Modo oscuro</span>
+              <button class="toggle-switch" onclick="this.classList.toggle('on')" title="Modo oscuro"></button>
+            </div>
+            <div class="ajuste-row">
+              <span class="ajuste-label">🔊 Sonidos</span>
+              <button class="toggle-switch on" onclick="this.classList.toggle('on')" title="Sonidos"></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="perfil-section">
+        <div class="perfil-section-title">🚀 Accesos rápidos</div>
+        <div class="perfil-acciones">
+          <a href="../lecciones/categorias.html" class="btn-accion primario">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            Ver categorías
+          </a>
+          <a href="progreso.html" class="btn-accion secundario">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Mi progreso
+          </a>
+          <a href="../practica/quiz.html" class="btn-accion secundario">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Jugar quiz
+          </a>
+          <button class="btn-accion peligro" onclick="cerrarSesion()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /perfil-wrap -->
+
+    <!-- ── CARD AUTH ─────────────────────────────────────────── -->
+    <div class="auth-card" id="auth-card">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('login')">Iniciar sesión</button>
+        <button class="tab-btn"        onclick="switchTab('registro')">Crear cuenta</button>
+      </div>
+      <div class="tab-content">
+
+        <!-- LOGIN -->
+        <div class="tab-panel active" id="panel-login">
+          <h2>Bienvenido</h2>
+          <p class="subtitulo">Inicia sesión para continuar en SIGNOVA.</p>
+          <div class="alert alert-error" id="login-error"></div>
+          <div class="campo"><input type="email"    id="login-correo" placeholder="Correo electrónico" autocomplete="email"></div>
+          <div class="campo"><input type="password" id="login-pass"   placeholder="Contraseña" autocomplete="current-password"></div>
+          <a class="forgot-link" onclick="switchTab('recuperar')" href="#">¿Olvidaste tu contraseña?</a>
+          <button class="btn-cuenta" onclick="iniciarSesion()">Ingresar</button>
+          <p class="switch-text">¿No tienes cuenta? <a onclick="switchTab('registro')">Regístrate</a></p>
+        </div>
+
+        <!-- REGISTRO -->
+        <div class="tab-panel" id="panel-registro">
+          <h2>Crear cuenta</h2>
+          <p class="subtitulo">Únete a SIGNOVA y empieza a aprender LSC hoy.</p>
+          <div class="alert alert-error"   id="registro-error"></div>
+          <div class="alert alert-success" id="registro-exito"></div>
+          <div class="campo"><input type="text"     id="reg-nombre"    placeholder="Nombre completo" autocomplete="name"></div>
+          <div class="campo"><input type="email"    id="reg-correo"    placeholder="Correo electrónico" autocomplete="email"></div>
+          <div class="campo">
+            <input type="password" id="reg-pass" placeholder="Contraseña" autocomplete="new-password">
+            <p class="hint">Mínimo 6 caracteres</p>
+          </div>
+          <div class="campo"><input type="password" id="reg-confirmar" placeholder="Confirmar contraseña" autocomplete="new-password"></div>
+          <button class="btn-cuenta" onclick="registrar()" style="margin-top:8px">Crear cuenta</button>
+          <p class="switch-text">¿Ya tienes cuenta? <a onclick="switchTab('login')">Inicia sesión</a></p>
+        </div>
+
+        <!-- RECUPERAR -->
+        <div class="tab-panel" id="panel-recuperar">
+          <h2>Recuperar contraseña</h2>
+          <p class="subtitulo">Ingresa tu correo y te mostraremos tu contraseña.</p>
+          <div class="alert alert-error"   id="rec-error"></div>
+          <div class="alert alert-success" id="rec-exito"></div>
+          <div class="campo"><input type="email" id="rec-correo" placeholder="Correo electrónico"></div>
+          <button class="btn-cuenta" onclick="recuperar()">Buscar cuenta</button>
+          <p class="switch-text"><a onclick="switchTab('login')">← Volver a iniciar sesión</a></p>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const sesion = JSON.parse(localStorage.getItem('signova_sesion') || 'null');
+      if (sesion) mostrarPerfil(sesion);
+      actualizarNavLabel();
+    });
+
+    function mostrarPerfil(sesion) {
+      document.getElementById('auth-card').style.display   = 'none';
+      document.getElementById('perfil-wrap').style.display = 'block';
+      document.getElementById('perfil-nombre').textContent = sesion.nombre;
+      document.getElementById('perfil-correo').textContent = sesion.correo;
+      document.getElementById('perfil-avatar').textContent = sesion.nombre.charAt(0).toUpperCase();
+      // Cargar stats del localStorage
+      document.getElementById('stat-quiz').textContent  = localStorage.getItem('quiz_best')    || 0;
+      document.getElementById('stat-juego').textContent = localStorage.getItem('games_played') || 0;
+      // Calcular días en la plataforma
+      const registro = localStorage.getItem('signova_fecha_registro');
+      if (!registro) localStorage.setItem('signova_fecha_registro', Date.now());
+      const dias = Math.max(1, Math.floor((Date.now() - parseInt(localStorage.getItem('signova_fecha_registro') || Date.now())) / 86400000));
+      document.getElementById('stat-dias').textContent = dias;
+    }
+
+    function actualizarNavLabel() {
+      const sesion = JSON.parse(localStorage.getItem('signova_sesion') || 'null');
+      const label  = document.getElementById('nav-cuenta-label');
+      if (sesion && label) label.textContent = sesion.nombre.split(' ')[0];
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      if (tab === 'recuperar') { document.getElementById('panel-recuperar').classList.add('active'); return; }
+      document.getElementById('panel-' + tab).classList.add('active');
+      document.querySelectorAll('.tab-btn')[tab === 'login' ? 0 : 1].classList.add('active');
+      limpiarAlertas();
+    }
+
+    function limpiarAlertas() {
+      document.querySelectorAll('.alert').forEach(a => { a.classList.remove('show'); a.textContent = ''; });
+    }
+    function showError(id, msg)   { const el=document.getElementById(id); el.textContent=msg; el.className='alert alert-error show'; }
+    function showSuccess(id, msg) { const el=document.getElementById(id); el.textContent=msg; el.className='alert alert-success show'; }
+
+    // ── Almacenamiento de usuarios 100% local (sin backend ni base de datos) ──
+    function obtenerUsuarios() {
+      return JSON.parse(localStorage.getItem('signova_usuarios') || '[]');
+    }
+    function guardarUsuarios(lista) {
+      localStorage.setItem('signova_usuarios', JSON.stringify(lista));
+    }
+    // Hash simple solo para no guardar la contraseña en texto plano en el navegador.
+    // No es criptográficamente seguro; es suficiente para un proyecto sin servidor.
+    function hashSimple(texto) {
+      let hash = 0;
+      for (let i = 0; i < texto.length; i++) {
+        hash = (Math.imul(31, hash) + texto.charCodeAt(i)) | 0;
+      }
+      return String(hash);
+    }
+
+    function iniciarSesion() {
+      limpiarAlertas();
+      const correo = document.getElementById('login-correo').value.trim().toLowerCase();
+      const pass   = document.getElementById('login-pass').value;
+      if (!correo || !pass) { showError('login-error', 'Completa todos los campos.'); return; }
+
+      const usuarios = obtenerUsuarios();
+      const usuario  = usuarios.find(u => u.correo === correo);
+
+      if (!usuario || usuario.contrasena !== hashSimple(pass)) {
+        showError('login-error', 'Correo o contraseña incorrectos.');
+        return;
+      }
+
+      const sesion = { nombre: usuario.nombre, correo: usuario.correo };
+      localStorage.setItem('signova_sesion', JSON.stringify(sesion));
+      mostrarPerfil(sesion);
+      actualizarNavLabel();
+    }
+
+    function registrar() {
+      limpiarAlertas();
+      const nombre    = document.getElementById('reg-nombre').value.trim();
+      const correo    = document.getElementById('reg-correo').value.trim().toLowerCase();
+      const pass      = document.getElementById('reg-pass').value;
+      const confirmar = document.getElementById('reg-confirmar').value;
+      if (!nombre || !correo || !pass || !confirmar) { showError('registro-error', 'Completa todos los campos.'); return; }
+      if (!/\S+@\S+\.\S+/.test(correo))              { showError('registro-error', 'El correo no es válido.'); return; }
+      if (pass.length < 6)                            { showError('registro-error', 'Mínimo 6 caracteres en la contraseña.'); return; }
+      if (pass !== confirmar)                         { showError('registro-error', 'Las contraseñas no coinciden.'); return; }
+
+      const usuarios = obtenerUsuarios();
+      if (usuarios.some(u => u.correo === correo)) {
+        showError('registro-error', 'Ya existe una cuenta con ese correo.');
+        return;
+      }
+
+      usuarios.push({ nombre, correo, contrasena: hashSimple(pass) });
+      guardarUsuarios(usuarios);
+
+      const sesion = { nombre, correo };
+      localStorage.setItem('signova_sesion', JSON.stringify(sesion));
+      localStorage.setItem('signova_fecha_registro', Date.now());
+      mostrarPerfil(sesion);
+      actualizarNavLabel();
+    }
+
+    function recuperar() {
+      limpiarAlertas();
+      const correo = document.getElementById('rec-correo').value.trim().toLowerCase();
+      if (!correo) { showError('rec-error', 'Ingresa tu correo.'); return; }
+
+      const usuarios = obtenerUsuarios();
+      if (usuarios.some(u => u.correo === correo)) {
+        showSuccess('rec-exito', 'Encontramos tu cuenta en este dispositivo. Por seguridad, la recuperación de contraseña no está disponible sin correo; puedes crear una cuenta nueva si lo prefieres.');
+      } else {
+        showSuccess('rec-exito', 'No encontramos una cuenta con ese correo en este dispositivo.');
+      }
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem('signova_sesion');
+      document.getElementById('perfil-wrap').style.display = 'none';
+      document.getElementById('auth-card').style.display   = 'block';
+      document.getElementById('nav-cuenta-label').textContent = 'Cuenta';
+      limpiarAlertas();
+      switchTab('login');
+    }
+  </script>
+<script src="../assets/js/gamification.js"></script>
+</body>
+</html>

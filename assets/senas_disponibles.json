@@ -1,0 +1,277 @@
+{
+  "perro": {
+    "label": "Perro",
+    "categoria": "🐾 Animales",
+    "pagina": "animales.html"
+  },
+  "gato": {
+    "label": "Gato",
+    "categoria": "🐾 Animales",
+    "pagina": "animales.html"
+  },
+  "loro": {
+    "label": "Loro",
+    "categoria": "🐾 Animales",
+    "pagina": "animales.html"
+  },
+  "vaca": {
+    "label": "Vaca",
+    "categoria": "🐾 Animales",
+    "pagina": "animales.html"
+  },
+  "caballo": {
+    "label": "Caballo",
+    "categoria": "🐾 Animales",
+    "pagina": "animales.html"
+  },
+  "tiburon": {
+    "label": "Tiburón",
+    "categoria": "🐾 Animales",
+    "pagina": "animales.html"
+  },
+  "rojo": {
+    "label": "Rojo",
+    "categoria": "🎨 Colores",
+    "pagina": "colores.html"
+  },
+  "azul": {
+    "label": "Azul",
+    "categoria": "🎨 Colores",
+    "pagina": "colores.html"
+  },
+  "amarillo": {
+    "label": "Amarillo",
+    "categoria": "🎨 Colores",
+    "pagina": "colores.html"
+  },
+  "negro": {
+    "label": "Negro",
+    "categoria": "🎨 Colores",
+    "pagina": "colores.html"
+  },
+  "blanco": {
+    "label": "Blanco",
+    "categoria": "🎨 Colores",
+    "pagina": "colores.html"
+  },
+  "almuerzo": {
+    "label": "Almuerzo",
+    "categoria": "🍽️ Comida",
+    "pagina": "comida.html"
+  },
+  "caliente": {
+    "label": "Caliente",
+    "categoria": "🍽️ Comida",
+    "pagina": "comida.html"
+  },
+  "cena": {
+    "label": "Cena",
+    "categoria": "🍽️ Comida",
+    "pagina": "comida.html"
+  },
+  "desayunar": {
+    "label": "Desayunar",
+    "categoria": "🍽️ Comida",
+    "pagina": "comida.html"
+  },
+  "hambre": {
+    "label": "Hambre",
+    "categoria": "🍽️ Comida",
+    "pagina": "comida.html"
+  },
+  "cabeza": {
+    "label": "Cabeza",
+    "categoria": "💪 Cuerpo humano",
+    "pagina": "cuerpo.html"
+  },
+  "brazos": {
+    "label": "Brazos",
+    "categoria": "💪 Cuerpo humano",
+    "pagina": "cuerpo.html"
+  },
+  "pies": {
+    "label": "Pies",
+    "categoria": "💪 Cuerpo humano",
+    "pagina": "cuerpo.html"
+  },
+  "manos": {
+    "label": "Manos",
+    "categoria": "💪 Cuerpo humano",
+    "pagina": "cuerpo.html"
+  },
+  "boca": {
+    "label": "Boca",
+    "categoria": "💪 Cuerpo humano",
+    "pagina": "cuerpo.html"
+  },
+  "ojo": {
+    "label": "Ojo",
+    "categoria": "💪 Cuerpo humano",
+    "pagina": "cuerpo.html"
+  },
+  "amor": {
+    "label": "Amor",
+    "categoria": "Emociones",
+    "pagina": "emociones.html"
+  },
+  "feliz": {
+    "label": "Feliz",
+    "categoria": "Emociones",
+    "pagina": "emociones.html"
+  },
+  "desagrado": {
+    "label": "Desagrado",
+    "categoria": "Emociones",
+    "pagina": "emociones.html"
+  },
+  "ira": {
+    "label": "Ira",
+    "categoria": "Emociones",
+    "pagina": "emociones.html"
+  },
+  "sorpresa": {
+    "label": "Sorpresa",
+    "categoria": "Emociones",
+    "pagina": "emociones.html"
+  },
+  "triste": {
+    "label": "Triste",
+    "categoria": "Emociones",
+    "pagina": "emociones.html"
+  },
+  "cuaderno": {
+    "label": "Cuaderno",
+    "categoria": "📚 Escuela",
+    "pagina": "escuela.html"
+  },
+  "colegio": {
+    "label": "Colegio",
+    "categoria": "📚 Escuela",
+    "pagina": "escuela.html"
+  },
+  "colores_escuela": {
+    "label": "Colores",
+    "categoria": "📚 Escuela",
+    "pagina": "escuela.html"
+  },
+  "esfero": {
+    "label": "Esfero",
+    "categoria": "📚 Escuela",
+    "pagina": "escuela.html"
+  },
+  "maleta": {
+    "label": "Maleta",
+    "categoria": "📚 Escuela",
+    "pagina": "escuela.html"
+  },
+  "abuelo": {
+    "label": "Abuelo",
+    "categoria": "Familia",
+    "pagina": "familia.html"
+  },
+  "mama": {
+    "label": "Mamá",
+    "categoria": "Familia",
+    "pagina": "familia.html"
+  },
+  "papa": {
+    "label": "Papá",
+    "categoria": "Familia",
+    "pagina": "familia.html"
+  },
+  "hijo": {
+    "label": "Hijo",
+    "categoria": "Familia",
+    "pagina": "familia.html"
+  },
+  "familia": {
+    "label": "Familia",
+    "categoria": "Familia",
+    "pagina": "familia.html"
+  },
+  "profesor": {
+    "label": "Profesor",
+    "categoria": "Profesiones",
+    "pagina": "profesiones.html"
+  },
+  "cantante": {
+    "label": "Cantante",
+    "categoria": "Profesiones",
+    "pagina": "profesiones.html"
+  },
+  "enfermera": {
+    "label": "Enfermera",
+    "categoria": "Profesiones",
+    "pagina": "profesiones.html"
+  },
+  "ingeniero": {
+    "label": "Ingeniero",
+    "categoria": "Profesiones",
+    "pagina": "profesiones.html"
+  },
+  "policia": {
+    "label": "Policía",
+    "categoria": "Profesiones",
+    "pagina": "profesiones.html"
+  },
+  "psicologo": {
+    "label": "Psicólogo",
+    "categoria": "Profesiones",
+    "pagina": "profesiones.html"
+  },
+  "hola": {
+    "label": "Hola",
+    "categoria": "Saludos",
+    "pagina": "saludos.html"
+  },
+  "buenos_dias": {
+    "label": "Buenos días",
+    "categoria": "Saludos",
+    "pagina": "saludos.html"
+  },
+  "buenas_tardes": {
+    "label": "Buenas tardes",
+    "categoria": "Saludos",
+    "pagina": "saludos.html"
+  },
+  "buenas_noches": {
+    "label": "Buenas noches",
+    "categoria": "Saludos",
+    "pagina": "saludos.html"
+  },
+  "como_estas": {
+    "label": "¿Cómo estás?",
+    "categoria": "Saludos",
+    "pagina": "saludos.html"
+  },
+  "casa": {
+    "label": "Casa",
+    "categoria": "🏠 Vida Diaria",
+    "pagina": "vidadiaria.html"
+  },
+  "comer": {
+    "label": "Comer",
+    "categoria": "🏠 Vida Diaria",
+    "pagina": "vidadiaria.html"
+  },
+  "dormir": {
+    "label": "Dormir",
+    "categoria": "🏠 Vida Diaria",
+    "pagina": "vidadiaria.html"
+  },
+  "trabajar": {
+    "label": "Trabajar",
+    "categoria": "🏠 Vida Diaria",
+    "pagina": "vidadiaria.html"
+  },
+  "caminar": {
+    "label": "Caminar",
+    "categoria": "🏠 Vida Diaria",
+    "pagina": "vidadiaria.html"
+  },
+  "tiempo": {
+    "label": "Tiempo",
+    "categoria": "🏠 Vida Diaria",
+    "pagina": "vidadiaria.html"
+  }
+}

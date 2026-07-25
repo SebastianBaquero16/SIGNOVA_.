@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deletreo LSC — SIGNOVA</title>
+<link rel="stylesheet" href="../assets/css/styles.css">
+<style>
+  .dl-page {
+    min-height: calc(100vh - 74px);
+    background: var(--azul-fondo);
+    padding: 40px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dl-header { text-align: center; margin-bottom: 26px; position: relative; z-index: 1; }
+  .dl-header h1 {
+    font-family: var(--font-titulos);
+    font-weight: 900;
+    font-size: clamp(1.9rem, 4.5vw, 3rem);
+    letter-spacing: -1.5px;
+    color: var(--negro);
+  }
+  .dl-header h1 span {
+    background: var(--gradiente-calido);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .dl-header p { color: #6b7280; max-width: 540px; margin: 8px auto 0; line-height: 1.7; }
+
+  .dl-wrap { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+
+  .dl-tarjeta {
+    background: white; border-radius: var(--radio-lg); box-shadow: var(--sombra-md);
+    padding: 30px; text-align: center;
+  }
+
+  /* Pantalla de inicio */
+  .dl-nota {
+    background: #f5f3ff; border: 1px solid #e0d6ff; border-radius: 14px;
+    padding: 16px 18px; text-align: left; font-size: 0.85rem; color: #4c1d95;
+    line-height: 1.6; margin: 20px 0 26px;
+  }
+  .dl-nota b { color: var(--morado); }
+
+  /* Barra superior de estado */
+  .dl-barra-top {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px; margin-bottom: 18px; flex-wrap: wrap;
+  }
+  .dl-stat {
+    background: white; border-radius: 14px; padding: 10px 18px;
+    box-shadow: var(--sombra-sm); text-align: center; min-width: 84px;
+  }
+  .dl-stat-num { font-family: var(--font-titulos); font-weight: 800; font-size: 1.4rem; color: var(--morado); }
+  .dl-stat-label { font-size: 0.7rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+  .dl-vidas { font-size: 1.2rem; letter-spacing: 3px; }
+
+  .dl-tiempo-wrap { flex: 1; min-width: 140px; }
+  .dl-tiempo-barra { width: 100%; height: 10px; background: #f3f4f6; border-radius: 30px; overflow: hidden; }
+  .dl-tiempo-relleno {
+    height: 100%; border-radius: 30px; background: var(--gradiente-calido);
+    transition: width 0.1s linear, background 0.3s ease; width: 100%;
+  }
+  .dl-tiempo-relleno.urgente { background: linear-gradient(90deg,#f59e0b,#dc2626); }
+
+  .dl-video-wrap {
+    background: #0a0a0a; border-radius: 16px; overflow: hidden;
+    aspect-ratio: 16/9; margin-bottom: 20px;
+  }
+  .dl-video-wrap video { width: 100%; height: 100%; object-fit: contain; }
+
+  .dl-prompt { font-size: 0.85rem; color: #6b7280; margin-bottom: 14px; }
+
+  /* Casillas de la palabra */
+  .dl-casillas {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 7px;
+    margin-bottom: 24px;
+  }
+  .dl-casilla {
+    width: 36px; height: 42px; border-bottom: 3px solid #d1c4f5;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-titulos); font-weight: 800; font-size: 1.3rem;
+    color: var(--morado); transition: border-color 0.2s ease;
+  }
+  .dl-casilla.llena { border-color: var(--morado); }
+  .dl-casilla.shake { animation: dlShake 0.35s ease; border-color: #ef4444; }
+
+  @keyframes dlShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+
+  /* Teclado dactilológico (alfabeto) */
+  .dl-teclado {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 560px) { .dl-teclado { grid-template-columns: repeat(6, 1fr); } }
+
+  .dl-tecla {
+    aspect-ratio: 1;
+    border-radius: 10px;
+    border: 2px solid #e5e7eb;
+    background: #f9fafb;
+    font-family: var(--font-cuerpo);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--negro);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .dl-tecla:hover:not(:disabled) { border-color: var(--morado); background: #f5f3ff; transform: translateY(-2px); }
+  .dl-tecla:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .dl-acciones { display: flex; justify-content: center; gap: 10px; margin-bottom: 6px; }
+  .dl-btn-sec {
+    padding: 9px 18px; border-radius: 30px; border: 2px solid #e0d6ff;
+    background: white; font-weight: 700; font-size: 0.82rem; color: var(--morado);
+    cursor: pointer; transition: all 0.2s ease;
+  }
+  .dl-btn-sec:hover { background: #ede9ff; }
+  .dl-btn-sec:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .dl-combo {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: linear-gradient(135deg, #fff7ed, #ffedd5); border: 1.5px solid #fdba74;
+    color: #c2410c; font-weight: 800; font-size: 0.85rem; padding: 4px 14px; border-radius: 30px;
+    margin-top: 12px; opacity: 0; transform: scale(0.8); transition: all 0.25s ease;
+  }
+  .dl-combo.visible { opacity: 1; transform: scale(1); }
+
+  .dl-inicio, .dl-final { text-align: center; }
+  .dl-final h2 { font-family: var(--font-titulos); font-size: 2rem; color: var(--negro); margin-bottom: 6px; }
+  .dl-final .puntaje-grande {
+    font-family: var(--font-titulos); font-weight: 900; font-size: 3.2rem;
+    background: var(--gradiente-calido); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin: 10px 0;
+  }
+  .dl-final p.record { color: #059669; font-weight: 700; margin-bottom: 18px; }
+
+  .blob1 { top: -60px; right: -60px; width: 260px; height: 260px; background: var(--magenta); }
+  .blob2 { bottom: -80px; left: -60px; width: 300px; height: 300px; background: var(--cyan); }
+</style>
+</head>
+<body>
+
+<div class="blob-decorativo blob1"></div>
+<div class="blob-decorativo blob2"></div>
+
+<nav class="navbar">
+  <a href="../index.html" class="logo"><span class="logo-s">S</span><span class="logo-ig">IG</span><span class="logo-no">NO</span><span class="logo-va">VA</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a></li>
+    <li><a href="traductor.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Buscador</span></a></li>
+    <li><a href="../lecciones/categorias.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Categorías</span></a></li>
+
+    <li><a href="juegos.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 00-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 003 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 019.828 16h4.344a2 2 0 011.414.586L17 18c.5.5 1 1 2 1a3 3 0 003-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.01-.1-.017-.151A4 4 0 0017.32 5z"/></svg><span>Juego</span></a></li>
+    <li><a href="../usuario/cuenta.html" id="nav-cuenta-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span id="nav-cuenta-label">Cuenta</span></a></li>
+    <li class="navbar-racha-slot" id="navbar-racha-slot"></li>
+    <li class="dropdown">
+      <a href="#" title="Más opciones">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <span>Más</span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="quiz.html">🧠 Quiz</a></li>
+        <li><a href="../usuario/progreso.html">📊 Progreso</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<div style="height:3px;background:linear-gradient(90deg,var(--magenta),#a855f7,var(--cyan))"></div>
+
+<section class="dl-page">
+  <div class="dl-header">
+    <h1>Deletreo <span>LSC</span></h1>
+    <p>Mira la seña en video y deletréala letra por letra usando el alfabeto, tal como se hace con el alfabeto dactilológico cuando una palabra no tiene seña propia (nombres, siglas, palabras nuevas).</p>
+  </div>
+
+  <div class="dl-wrap">
+
+    <div class="dl-tarjeta" id="pantallaInicio">
+      <div class="dl-inicio">
+        <div style="font-size:3rem; margin-bottom:10px;">🔤</div>
+        <h2 style="font-family:var(--font-titulos); font-size:1.5rem; margin-bottom:8px;">¿Listo para deletrear?</h2>
+        <p style="color:#6b7280;">8 palabras · 3 vidas · usa las letras para completar cada palabra antes de que se acabe el tiempo</p>
+        <div class="dl-nota">
+          <b>¿Qué es el alfabeto dactilológico?</b> Es el conjunto de señas que representan cada letra del abecedario con la mano. Se usa para deletrear nombres propios, siglas o palabras que aún no tienen una seña establecida en LSC.
+        </div>
+        <p style="color:#6b7280; margin-bottom:22px; font-size:0.9rem;">Tu mejor puntaje: <b id="mejorPuntajeInicio">0</b></p>
+        <button class="btn-primary" id="btnEmpezar">Empezar reto</button>
+      </div>
+    </div>
+
+    <div id="pantallaJuego" style="display:none;">
+      <div class="dl-barra-top">
+        <div class="dl-stat"><div class="dl-stat-num" id="statRonda">1/8</div><div class="dl-stat-label">Palabra</div></div>
+        <div class="dl-tiempo-wrap">
+          <div class="dl-tiempo-barra"><div class="dl-tiempo-relleno" id="tiempoRelleno"></div></div>
+        </div>
+        <div class="dl-stat"><div class="dl-vidas" id="statVidas">❤️❤️❤️</div><div class="dl-stat-label">Vidas</div></div>
+        <div class="dl-stat"><div class="dl-stat-num" id="statPuntaje">0</div><div class="dl-stat-label">Puntos</div></div>
+      </div>
+
+      <div class="dl-tarjeta">
+        <div class="dl-video-wrap">
+          <video id="dlVideo" autoplay muted loop playsinline></video>
+        </div>
+        <p class="dl-prompt">Deletrea la palabra que corresponde a esta seña:</p>
+        <div class="dl-casillas" id="dlCasillas"></div>
+        <div class="dl-teclado" id="dlTeclado"></div>
+        <div class="dl-acciones">
+          <button class="dl-btn-sec" id="btnBorrar">⌫ Borrar</button>
+          <button class="dl-btn-sec" id="btnPista">💡 Pista (−15 pts)</button>
+        </div>
+        <div style="text-align:center;"><div class="dl-combo" id="dlCombo">🔥 Racha x2</div></div>
+      </div>
+    </div>
+
+    <div class="dl-tarjeta dl-final" id="pantallaFinal" style="display:none;">
+      <div style="font-size:3rem;">🏅</div>
+      <h2>¡Reto de deletreo terminado!</h2>
+      <div class="puntaje-grande" id="puntajeFinal">0</div>
+      <p id="mensajeRecord" class="record" style="display:none;">¡Nuevo récord personal!</p>
+      <p style="color:#6b7280; margin-bottom:22px;" id="resumenFinal"></p>
+      <button class="btn-primary" id="btnReintentar">Jugar de nuevo</button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <strong>SIGNOVA</strong> — Plataforma de aprendizaje de Lengua de Señas Colombiana &nbsp;·&nbsp; Proyecto Formativo SENA
+</footer>
+
+<script>
+  /* Banco de palabras: solo palabras de una sola pieza (sin espacios) que
+     ya tienen video en assets/videos, para poder deletrearlas letra por letra. */
+  const BANCO = [
+    { file: 'abuelo',    label: 'Abuelo' },
+    { file: 'almuerzo',  label: 'Almuerzo' },
+    { file: 'amarillo',  label: 'Amarillo' },
+    { file: 'amor',      label: 'Amor' },
+    { file: 'azul',      label: 'Azul' },
+    { file: 'blanco',    label: 'Blanco' },
+    { file: 'boca',      label: 'Boca' },
+    { file: 'brazos',    label: 'Brazos' },
+    { file: 'caballo',   label: 'Caballo' },
+    { file: 'cabeza',    label: 'Cabeza' },
+    { file: 'caliente',  label: 'Caliente' },
+    { file: 'caminar',   label: 'Caminar' },
+    { file: 'cantante',  label: 'Cantante' },
+    { file: 'casa',      label: 'Casa' },
+    { file: 'cena',      label: 'Cena' },
+    { file: 'colegio',   label: 'Colegio' },
+    { file: 'comer',     label: 'Comer' },
+    { file: 'cuaderno',  label: 'Cuaderno' },
+    { file: 'desayunar', label: 'Desayunar' },
+    { file: 'dormir',    label: 'Dormir' },
+    { file: 'enfermera', label: 'Enfermera' },
+    { file: 'esfero',    label: 'Esfero' },
+    { file: 'familia',   label: 'Familia' },
+    { file: 'feliz',     label: 'Feliz' },
+    { file: 'gato',      label: 'Gato' },
+    { file: 'hambre',    label: 'Hambre' },
+    { file: 'hijo',      label: 'Hijo' },
+    { file: 'hola',      label: 'Hola' },
+    { file: 'ingeniero', label: 'Ingeniero' },
+    { file: 'loro',      label: 'Loro' },
+    { file: 'maleta',    label: 'Maleta' },
+    { file: 'mama',      label: 'Mamá' },
+    { file: 'manos',     label: 'Manos' },
+    { file: 'negro',     label: 'Negro' },
+    { file: 'ojo',       label: 'Ojo' },
+    { file: 'papa',      label: 'Papá' },
+    { file: 'perro',     label: 'Perro' },
+    { file: 'pies',      label: 'Pies' },
+    { file: 'policia',   label: 'Policía' },
+    { file: 'profesor',  label: 'Profesor' },
+    { file: 'rojo',      label: 'Rojo' },
+    { file: 'sorpresa',  label: 'Sorpresa' },
+    { file: 'tiburon',   label: 'Tiburón' },
+    { file: 'tiempo',    label: 'Tiempo' },
+    { file: 'trabajar',  label: 'Trabajar' },
+    { file: 'triste',    label: 'Triste' },
+    { file: 'vaca',      label: 'Vaca' },
+  ];
+
+  const RONDAS_TOTAL = 8;
+  const VIDAS_INICIAL = 3;
+  const TIEMPO_POR_LETRA_MS = 3200; // tiempo total de la ronda depende del largo de la palabra
+  const TIEMPO_MIN_MS = 9000;
+
+  let ronda = 0, puntaje = 0, vidas = VIDAS_INICIAL, racha = 0, mejorRacha = 0;
+  let palabraActual = null, letrasIngresadas = [], pistasUsadas = 0;
+  let tiempoRestante = 0, temporizador = null, respondida = false;
+  let palabrasUsadas = [];
+
+  const pantallaInicio = document.getElementById('pantallaInicio');
+  const pantallaJuego  = document.getElementById('pantallaJuego');
+  const pantallaFinal  = document.getElementById('pantallaFinal');
+  const dlVideo    = document.getElementById('dlVideo');
+  const dlCasillas = document.getElementById('dlCasillas');
+  const dlTeclado  = document.getElementById('dlTeclado');
+  const dlCombo    = document.getElementById('dlCombo');
+  const tiempoRelleno = document.getElementById('tiempoRelleno');
+  const statRonda   = document.getElementById('statRonda');
+  const statPuntaje = document.getElementById('statPuntaje');
+  const statVidas   = document.getElementById('statVidas');
+
+  function quitarAcentos(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+  }
+
+  function mezclar(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  document.getElementById('mejorPuntajeInicio').textContent = localStorage.getItem('deletreo_best') || 0;
+  document.getElementById('btnEmpezar').addEventListener('click', empezarReto);
+  document.getElementById('btnReintentar').addEventListener('click', empezarReto);
+  document.getElementById('btnBorrar').addEventListener('click', borrarUltimaLetra);
+  document.getElementById('btnPista').addEventListener('click', usarPista);
+
+  function empezarReto() {
+    ronda = 0; puntaje = 0; vidas = VIDAS_INICIAL; racha = 0; mejorRacha = 0;
+    palabrasUsadas = [];
+    pantallaInicio.style.display = 'none';
+    pantallaFinal.style.display = 'none';
+    pantallaJuego.style.display = 'block';
+    actualizarVidas();
+    siguienteRonda();
+  }
+
+  function siguienteRonda() {
+    if (ronda >= RONDAS_TOTAL || vidas <= 0) { terminarReto(); return; }
+    ronda++;
+    respondida = false;
+    pistasUsadas = 0;
+    statRonda.textContent = `${ronda}/${RONDAS_TOTAL}`;
+    statPuntaje.textContent = puntaje;
+    dlCombo.classList.remove('visible');
+
+    const disponibles = BANCO.filter(p => !palabrasUsadas.includes(p.file));
+    palabraActual = disponibles[Math.floor(Math.random() * disponibles.length)] || BANCO[Math.floor(Math.random() * BANCO.length)];
+    palabrasUsadas.push(palabraActual.file);
+    letrasIngresadas = [];
+
+    dlVideo.src = `../assets/videos/${palabraActual.file}.mp4`;
+
+    const objetivo = quitarAcentos(palabraActual.label);
+    dlCasillas.innerHTML = '';
+    for (let i = 0; i < objetivo.length; i++) {
+      const casilla = document.createElement('div');
+      casilla.className = 'dl-casilla';
+      casilla.id = `casilla-${i}`;
+      dlCasillas.appendChild(casilla);
+    }
+
+    const letras = mezclar('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''));
+    dlTeclado.innerHTML = '';
+    letras.forEach(letra => {
+      const btn = document.createElement('button');
+      btn.className = 'dl-tecla';
+      btn.textContent = letra;
+      btn.id = `tecla-${letra}`;
+      btn.addEventListener('click', () => elegirLetra(letra));
+      dlTeclado.appendChild(btn);
+    });
+
+    document.getElementById('btnPista').disabled = false;
+    document.getElementById('btnBorrar').disabled = false;
+
+    tiempoRestante = Math.max(TIEMPO_MIN_MS, objetivo.length * TIEMPO_POR_LETRA_MS);
+    iniciarTemporizador();
+  }
+
+  function iniciarTemporizador() {
+    clearInterval(temporizador);
+    const total = tiempoRestante;
+    const inicio = performance.now();
+    tiempoRelleno.classList.remove('urgente');
+    tiempoRelleno.style.width = '100%';
+
+    temporizador = setInterval(() => {
+      const transcurrido = performance.now() - inicio;
+      const restante = Math.max(0, total - transcurrido);
+      const pct = (restante / total) * 100;
+      tiempoRelleno.style.width = `${pct}%`;
+      if (pct < 30) tiempoRelleno.classList.add('urgente');
+
+      if (restante <= 0) {
+        clearInterval(temporizador);
+        if (!respondida) fallarRonda();
+      }
+    }, 40);
+  }
+
+  function objetivoActual() { return quitarAcentos(palabraActual.label); }
+
+  function elegirLetra(letra) {
+    if (respondida) return;
+    const objetivo = objetivoActual();
+    const posicion = letrasIngresadas.length;
+    const boton = document.getElementById(`tecla-${letra}`);
+    const casilla = document.getElementById(`casilla-${posicion}`);
+
+    if (letra === objetivo[posicion]) {
+      letrasIngresadas.push(letra);
+      casilla.textContent = letra;
+      casilla.classList.add('llena');
+      if (boton) boton.disabled = true;
+
+      if (letrasIngresadas.length === objetivo.length) {
+        completarRonda();
+      }
+    } else {
+      if (vidas <= 0) return;
+      casilla.classList.add('shake');
+      setTimeout(() => casilla.classList.remove('shake'), 350);
+      perderVida();
+    }
+  }
+
+  function borrarUltimaLetra() {
+    if (respondida || letrasIngresadas.length === 0) return;
+    const letra = letrasIngresadas.pop();
+    const casilla = document.getElementById(`casilla-${letrasIngresadas.length}`);
+    casilla.textContent = '';
+    casilla.classList.remove('llena');
+    const boton = document.getElementById(`tecla-${letra}`);
+    if (boton) boton.disabled = false;
+  }
+
+  function usarPista() {
+    if (respondida) return;
+    const objetivo = objetivoActual();
+    if (letrasIngresadas.length >= objetivo.length) return;
+    pistasUsadas++;
+    puntaje = Math.max(0, puntaje - 15);
+    statPuntaje.textContent = puntaje;
+    elegirLetraForzada(objetivo[letrasIngresadas.length]);
+  }
+
+  function elegirLetraForzada(letra) {
+    const posicion = letrasIngresadas.length;
+    letrasIngresadas.push(letra);
+    const casilla = document.getElementById(`casilla-${posicion}`);
+    casilla.textContent = letra;
+    casilla.classList.add('llena');
+    const boton = document.getElementById(`tecla-${letra}`);
+    if (boton) boton.disabled = true;
+    if (letrasIngresadas.length === objetivoActual().length) completarRonda();
+  }
+
+  function perderVida() {
+    vidas--;
+    actualizarVidas();
+    racha = 0;
+    if (vidas <= 0) {
+      respondida = true;
+      clearInterval(temporizador);
+      revelarPalabra();
+      setTimeout(siguienteRonda, 1400);
+    }
+  }
+
+  function actualizarVidas() {
+    statVidas.textContent = '❤️'.repeat(Math.max(0, vidas)) + '🖤'.repeat(VIDAS_INICIAL - Math.max(0, vidas));
+  }
+
+  function revelarPalabra() {
+    const objetivo = objetivoActual();
+    for (let i = 0; i < objetivo.length; i++) {
+      const casilla = document.getElementById(`casilla-${i}`);
+      if (casilla && !casilla.classList.contains('llena')) {
+        casilla.textContent = objetivo[i];
+        casilla.classList.add('llena');
+      }
+    }
+    document.querySelectorAll('.dl-tecla').forEach(b => b.disabled = true);
+    document.getElementById('btnPista').disabled = true;
+    document.getElementById('btnBorrar').disabled = true;
+  }
+
+  function completarRonda() {
+    respondida = true;
+    clearInterval(temporizador);
+    document.querySelectorAll('.dl-tecla').forEach(b => b.disabled = true);
+    document.getElementById('btnPista').disabled = true;
+    document.getElementById('btnBorrar').disabled = true;
+
+    racha++;
+    mejorRacha = Math.max(mejorRacha, racha);
+    const multiplicador = racha >= 5 ? 3 : racha >= 3 ? 2 : 1;
+    const puntosBase = objetivoActual().length * 10;
+    const bonusPista = pistasUsadas === 0 ? 20 : 0;
+    puntaje += (puntosBase + bonusPista) * multiplicador;
+    statPuntaje.textContent = puntaje;
+
+    if (multiplicador > 1) {
+      dlCombo.textContent = `🔥 Racha x${multiplicador}`;
+      dlCombo.classList.add('visible');
+    }
+
+    setTimeout(siguienteRonda, 1100);
+  }
+
+  function fallarRonda() {
+    respondida = true;
+    racha = 0;
+    revelarPalabra();
+    vidas--;
+    actualizarVidas();
+    setTimeout(siguienteRonda, 1400);
+  }
+
+  function terminarReto() {
+    pantallaJuego.style.display = 'none';
+    pantallaFinal.style.display = 'block';
+    document.getElementById('puntajeFinal').textContent = puntaje;
+    document.getElementById('resumenFinal').textContent =
+      `Mejor racha: x${mejorRacha >= 5 ? 3 : mejorRacha >= 3 ? 2 : 1} · ${ronda} palabra${ronda === 1 ? '' : 's'} jugada${ronda === 1 ? '' : 's'}`;
+
+    const mejorPrevio = parseInt(localStorage.getItem('deletreo_best') || '0');
+    const mensajeRecord = document.getElementById('mensajeRecord');
+    localStorage.setItem('deletreo_best', Math.max(mejorPrevio, puntaje));
+    mensajeRecord.style.display = puntaje > mejorPrevio ? 'block' : 'none';
+
+    const jugadas = parseInt(localStorage.getItem('deletreo_jugadas') || '0');
+    localStorage.setItem('deletreo_jugadas', jugadas + 1);
+
+    if (window.SIGNOVA) {
+      SIGNOVA.registrarHistorial('🔤', `Deletreo LSC: ${puntaje} puntos`, puntaje);
+      const { nuevos } = SIGNOVA.evaluarLogros();
+      nuevos.forEach(SIGNOVA.mostrarToastLogro);
+    }
+  }
+</script>
+
+<script src="../assets/js/gamification.js"></script>
+</body>
+</html>
