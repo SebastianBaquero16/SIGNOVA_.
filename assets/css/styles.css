@@ -916,10 +916,20 @@ footer strong {
 .dropdown-menu li.dropdown-menu-sub a {
   padding-left: 24px;
 }
-/* Ocultar el ícono de volumen en los videos de señas (no tienen audio) */
-video::-webkit-media-controls-mute-button {
-  display: none !important;
+
+/* Reproductor personalizado sin control de volumen */
+.svg-video-wrap { position: relative; width: 100%; }
+.svg-video-wrap video { width: 100%; display: block; }
+.svg-video-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(26, 26, 26, 0.85);
+  padding: 8px 12px;
+  border-radius: 0 0 12px 12px;
 }
-video::-webkit-media-controls-volume-slider {
-  display: none !important;
+.svg-video-play, .svg-video-full {
+  background: none; border: none; color: #fff;
+  font-size: 16px; cursor: pointer; width: 28px;
 }
+.svg-video-progress { flex: 1; accent-color: var(--cyan); cursor: pointer; }
