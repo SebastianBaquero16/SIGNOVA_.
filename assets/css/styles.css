@@ -916,3 +916,10 @@ footer strong {
 .dropdown-menu li.dropdown-menu-sub a {
   padding-left: 24px;
 }
+/* Ocultar el ícono de volumen en los videos de señas (no tienen audio) */
+video::-webkit-media-controls-mute-button {
+  display: none !important;
+}
+video::-webkit-media-controls-volume-slider {
+  display: none !important;
+}
