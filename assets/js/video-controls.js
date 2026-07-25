@@ -2,18 +2,17 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('video[controls]').forEach(function (video) {
     video.removeAttribute('controls');
 
-    var wrap = document.createElement('div');
-    wrap.className = 'svg-video-wrap';
-    video.parentNode.insertBefore(wrap, video);
-    wrap.appendChild(video);
-
     var bar = document.createElement('div');
     bar.className = 'svg-video-bar';
     bar.innerHTML =
       '<button class="svg-video-play" type="button">▶</button>' +
       '<input class="svg-video-progress" type="range" min="0" max="100" step="0.1" value="0">' +
       '<button class="svg-video-full" type="button">⛶</button>';
-    wrap.appendChild(bar);
+
+    // Insertamos la barra DESPUÉS del contenedor del video, no adentro,
+    // para que no quede recortada por el overflow:hidden del .video-wrapper
+    var container = video.closest('.video-wrapper') || video.parentNode;
+    container.insertAdjacentElement('afterend', bar);
 
     var playBtn = bar.querySelector('.svg-video-play');
     var progress = bar.querySelector('.svg-video-progress');

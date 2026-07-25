@@ -917,9 +917,6 @@ footer strong {
   padding-left: 24px;
 }
 
-/* Reproductor personalizado sin control de volumen */
-.svg-video-wrap { position: relative; width: 100%; }
-.svg-video-wrap video { width: 100%; display: block; }
 .svg-video-bar {
   display: flex;
   align-items: center;
