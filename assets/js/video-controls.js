@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('video[controls]').forEach(function (video) {
     video.removeAttribute('controls');
+    video.muted = true;
 
     var bar = document.createElement('div');
     bar.className = 'svg-video-bar';
